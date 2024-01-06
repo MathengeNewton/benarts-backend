@@ -1,0 +1,88 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Vendor Categories {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container mt-4">
+    <!-- Date Filters -->
+    <div class="form">
+        <div class="row align-items-center">
+            <div class="col-md-2 mb-3">
+
+                <a href="{{ url_for('create_vendor_category') }}" class="btn btn-primary">
+                    Create category
+                </a>
+                
+            </div>
+            <div class="col-md-2 mb-3">
+            </div>
+            <div class="col-md-2 mb-3">
+                <label for="startDate">Start Date</label>
+                <input type="date" class="form-control" id="startDate">
+            </div>
+            <div class="col-md-2 mb-3">
+                <label for="endDate">End Date</label>
+                <input type="date" class="form-control" id="endDate">
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <table class="table table-striped overflow-auto">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Category Name</th>
+                <th>Vendor Count</th>
+                <th>Date Joined</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category, vendor_count in categories %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ category.name }}</td>
+                <td>{{ vendor_count }}</td>
+                <td>{{ category.created_at }}</td>
+                <td>
+                    <a href="{{ url_for('get_edit_vendor_category', category_id=category.id) }}" class="btn btn-primary">
+                        Edit
+                    </a>
+                    <button type="button" class="btn btn-danger delete-btn" data-userid="{{ category.id }}">
+                        Delete
+                    </button> 
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="row justify-content-center">
+        <div class="pagination">
+            {{ pagination.links }}
+        </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+</div>
+
+{% endblock content %}
+

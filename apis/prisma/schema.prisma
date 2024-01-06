@@ -1,0 +1,30 @@
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model AdminUserModel {
+    id    String  @id @default(uuid())
+    username String 
+    email String  @unique
+    password  String  @db.VarChar(255)
+    status  Int  @default(1)
+    logs AdminLogsModel[]
+    created_at DateTime @default(now())
+    updated_at DateTime?
+
+    @@map("admin_users")
+}
+
+model AdminLogsModel {
+    id String  @id @default(uuid())
+    description String @default("")
+    admin_id String @unique
+    admin AdminUserModel @relation(fields: [admin_id], references: [id]) 
+    created_at DateTime @default(now())
+    @@map("admin_user_logs")
+}

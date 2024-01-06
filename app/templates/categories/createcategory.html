@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} categories {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="container mt-5">
+        <h2>Create Vendor Category</h2>
+        <form method="POST" action="{{ url_for('create_vendor_category') }}">
+            <div class="form-group">
+                <label for="name">Category Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Category</button>
+        </form>
+    </div>
+</div>
+{% include "includes/footer.html" %}
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

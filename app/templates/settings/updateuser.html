@@ -1,0 +1,52 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Users {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="container mt-5">
+        <h2>Update Admin User</h2>
+        <form method="POST" action="{{ url_for('update_user', user_id=user.id) }}">
+            <div class="form-group">
+                <label for="username">User Name</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{user.username}}">
+            </div>
+            <div class="form-group">
+                <label for="name">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
+            </div>
+            <div class="form-group">
+                <label for="name">Is Admin</label>
+                <select class="form-control" id="is_admin" name="is_admin" value="{{user.is_admin}}" disabled>
+                    <option value="True" >Active</option>
+                    <option value="False" >Inactive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Is Active</label>
+                <select class="form-control" id="is_active" name="is_active" value="{{user.is_active}}" disabled>
+                    <option value="True" >Active</option>
+                    <option value="False" >Inactive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Password</label>
+                <select class="form-control" id="password" name="password" value="{{False}}" disabled>
+                    <option value="True" >Reset Password</option>
+                    <option value="False" >Leave as is</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
+{% include "includes/footer.html" %}
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}
